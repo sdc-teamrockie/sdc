@@ -85,7 +85,7 @@ const addCharacteristicsReviews = function(array, callback) {
 };
 
 const reportReview = function(id, callback) {
-  var queryString = 'UPDATE reviews SET reported=0 WHERE reviewID=?';
+  var queryString = 'UPDATE reviews SET reported=1 WHERE reviewID=?';
   connection.query(queryString, id, function(err, result) {
     if (err) {
       callback(err, 'review report unsucessful');
@@ -96,7 +96,7 @@ const reportReview = function(id, callback) {
 };
 
 const incrementHelpful = function(id, callback) {
-  var queryString = 'UPDATE reviews SET helpfulness = helpfulness+1 WHERE id =?';
+  var queryString = 'UPDATE reviews SET helpfulness = helpfulness+1 WHERE reviewID=?';
   connection.query(queryString, id, function(err, result) {
     if (err) {
       callback(err, 'helpfulness update failed');

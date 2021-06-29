@@ -95,12 +95,14 @@ app.get('/reviews/meta/:product_id', function(req, res) {
         }
         return trackName;
       };
+
       const resultData = {
         product_id: productID,
         ratings: calcAllRating(),
         recommended: recordRecommend(),
         characteristics: getCharacteristics()
       };
+      
       res.status(200).json(resultData);
     }
   });
@@ -136,50 +138,44 @@ app.post('/reviews', function(req, res) {
       return result;
     }
   });
+  // functionality that depends on lastInsertedID for reviewID
   var lastinsertID = lastInsertId((err, result) => {
     if (err) {
       console.error(err);
     } else {
-      // console.log('result for lastinsertID', result);
-      return result;
+      const photos = JSON.parse(body.photos);
+      photos.forEach((photo) => {
+        postPhotos([result, photo], (err, result) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log(result);
+          }
+        });
+      });
+
+      // add characteristics
+      let characterIds = Object.keys(JSON.parse(body.characteristics));
+      let characterValues = Object.values(JSON.parse(body.characteristics));
+      for (let i = 0; i < characterIds.length; i++) {
+        addCharacteristicsReviews([Number(characterIds[i]), result, characterValues[i]], function(err, result) {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log(result);
+          }
+        });
+      }
     }
   });
 
-  // lastinsertID = lastinsertID[0][0].s;
 
-  console.log('show lastinsertID here', lastinsertID);
   // console.log('body photos', typeof JSON.parse(body.photos));
   // add each photo, according to last reviewID inserted to review table.
 
-  const photos = JSON.parse(body.photos);
-  console.log('photos', Array.isArray(photos));
-  photos.forEach((photo) => {
-    postPhotos([lastinsertID, photo], (err, result) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(result);
-      }
-    });
-  });
 
-  // add characteristics
-  const characterIds = Object.keys(body.characteristics);
-  const characterValues = Object.values(body.characteristics);
 
-  for (let i = 0; i < characterIds.length; i++) {
-    addCharacteristicsReviews([Number(characterIds[i]), Number(lastInsertId), characterValues[i]], function(err, result) {
-      if (err) {
-        // res.statusCode(404);
-        // res.send(err);
-        console.error(err);
-      } else {
-        // res.statusCode(200);
-        // res.send(result);
-        console.log(result);
-      }
-    });
-  }
+
 });
 
 
@@ -187,11 +183,10 @@ app.put('/reviews/:review_id/report', function(req, res) {
   const id = req.params.review_id;
   reportReview(id, function(err, result) {
     if (err) {
-      res.statusCode(404);
-      res.send(err);
+      res.status(404).send(result);
     } else {
-      res.statusCode(200);
-      res.send(result);
+      res.status(200).send(result);
+
     }
   });
 });
@@ -200,11 +195,9 @@ app.put('/reviews/:review_id/helpful', function(req, res) {
   const id = req.params.review_id;
   incrementHelpful(id, function(err, result) {
     if (err) {
-      res.statusCode(404);
-      res.send(err);
+      res.status(404).send(result);
     } else {
-      res.statusCode(200);
-      res.send(result);
+      res.status(200).send(result);
     }
   });
 });
