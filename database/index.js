@@ -1,35 +1,120 @@
 const mysql = require('mysql');
-// const csvtojson = require('csvtojson');
-// const csvFilePath = '../csv/reviews.csv';
-var fs = require('fs');
-var parse = require('csv-parse');
-
 
 const connection = mysql.createConnection({
   user: 'root',
   password: 'password',
-  database: 'review'
+  database: 'reviews'
 });
 
 // connection.query(queryString, queryParam, err first cb)
 
-// connection.connect((err) => {
-//   if (err) {
-//     return console.error('error:', err.message);
-//   }
-//   var queryString = `INSERT `;
+connection.connect((err) => {
+  if (err) {
+    return console.error('error:', err.message);
+  }
+});
 
-//   connection.query();
-// });
-const header = ['id', 'product_id', 'rating', 'date' , 'summary', 'body', 'recommend' , 'reported' , 'reviewer_name', 'reviewer_email' , 'response' , 'helpfulness']
-csvtojson({noheader: false, headers: header})
-  .fromFile(csvFilePath)
-  .then((jsonObj) => {
-    console.log('give me jsonObj length', jsonObj.length);
-    console.log('can i get object pls:', jsonObj);
-  })
-  .catch((err) => {
-    console.log('not able to load json for reason:', err);
+const getReviewForProductID = function(productID, callback) {
+  var queryString = 'SELECT * FROM reviews LEFT JOIN photos ON reviews.reviewID = photos.reviewID WHERE reviews.productID=?';
+  connection.query(queryString, productID, function(err, result) {
+    if (err) {
+      callback(err, `error occurred for getReviewForProductID ${productID}`);
+    } else {
+      callback(null, result);
+    }
   });
+};
+
+const getReviewMetaData = function(productID, callback) {
+  var queryString = `SELECT reviews.rating, reviews.recommend, reviews.reviewID, name, value, characteristics.characterID
+  FROM reviews
+  LEFT JOIN characteristics_reviews ON characteristics_reviews.reviewID = reviews.reviewID
+  LEFT JOIN characteristics ON characteristics.characterID = characteristics_reviews.characterID
+  WHERE reviews.productID=?`;
+  connection.query(queryString, productID, function(err, result) {
+    if (err) {
+      callback(err, `error occurred for getReviewMetaData for productID:${productID}`);
+    } else {
+      callback(null, result);
+    }
+  });
+};
+
+const postReview = function(array, callback) {
+  var queryString = 'INSERT INTO reviews (productID, rating, summary, body, recommend, reviewer_name, reviewer_email, helpfulness, reported, review_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  connection.query(queryString, array, function(err, result) {
+    if (err) {
+      callback(err, 'error occurred for inserting into review');
+    } else {
+      callback(null, 'review has been posted');
+    }
+  });
+};
+const lastInsertId = function(callback) {
+  var queryString = 'SELECT LAST_INSERT_ID()s';
+  connection.query(queryString, function(err, result) {
+    if (err) {
+      callback(err, 'err occurred lastInsertId');
+    } else {
+      // console.log('am i getting', result[0].s);
+      callback(null, result[0].s);
+    }
+  });
+};
+
+const postPhotos = function(array, callback) {
+  var queryString = 'INSERT INTO photos (reviewID, url) VALUES (?, ?)';
+  connection.query(queryString, array, function(err, result) {
+    if (err) {
+      callback(err, 'err occurred for postPhotos');
+    } else {
+      callback(null, 'photo has been posted');
+    }
+  });
+};
+
+const addCharacteristicsReviews = function(array, callback) {
+  var queryString = 'INSERT INTO characteristics_reviews (characterID, reviewID, value) VALUES (?, ?, ?)';
+  connection.query(queryString, array, function(err, result) {
+    if (err) {
+      callback(err, 'err has occurred for adding characteristics review');
+    } else {
+      callback(null, 'characteristics reviews has been added');
+    }
+  });
+};
+
+const reportReview = function(id, callback) {
+  var queryString = 'UPDATE reviews SET reported=0 WHERE reviewID=?';
+  connection.query(queryString, id, function(err, result) {
+    if (err) {
+      callback(err, 'review report unsucessful');
+    } else {
+      callback(null, 'review has been reported');
+    }
+  });
+};
+
+const incrementHelpful = function(id, callback) {
+  var queryString = 'UPDATE reviews SET helpfulness = helpfulness+1 WHERE id =?';
+  connection.query(queryString, id, function(err, result) {
+    if (err) {
+      callback(err, 'helpfulness update failed');
+    } else {
+      callback(null, 'helpfulness incremented');
+    }
+  });
+};
 
 
+
+module.exports = {
+  getReviewForProductID,
+  getReviewMetaData,
+  postReview,
+  lastInsertId,
+  postPhotos,
+  addCharacteristicsReviews,
+  reportReview,
+  incrementHelpful
+};

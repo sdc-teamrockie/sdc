@@ -34,13 +34,26 @@ CREATE TABLE reviews (
 CREATE TABLE photos (
   photoID int NOT NULL auto_increment PRIMARY KEY,
   reviewID int,
+  url varchar(150),
   FOREIGN KEY (reviewID) REFERENCES reviews(reviewID)
 )
 
-CREATE TABLE characteristic (
-  characteristicID int NOT NULL auto_increment PRIMARY KEY,
+CREATE TABLE characteristics (
+  characterID int NOT NULL auto_increment PRIMARY KEY,
+  productID int,
+  FOREIGN KEY (productID) REFERENCES products(productID),
+  name varchar(20) NOT NULL
+)
+
+-- many to many relationship with characteristics
+-- many review to many characteristic review
+CREATE TABLE characteristics_reviews (
+  crID int NOT NULL auto_increment PRIMARY KEY,
+  characterID int,
+  FOREIGN KEY (characterID) REFERENCES characteristics(characterID),
   reviewID int,
-  FOREIGN KEY (reviewID) REFERENCES reviews(reviewID)
+  FOREIGN KEY (reviewID) REFERENCES reviews(reviewID),
+  value int NOT NULL
 )
 
 -- each photoID has a reference to the productID
@@ -132,9 +145,65 @@ LINES TERMINATED BY '\n'
 (@dummy, productID, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy, @dummy);
 
 
+
+-- LOAD DATA FOR photo
+LOAD DATA LOCAL INFILE '/Users/fanana/Desktop/hackreactor/sdc/csv/reviews_photos.csv' INTO TABLE photos
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(photoID, reviewID, url);
+
+-- LOAD DATA FOR characteristics
+LOAD DATA LOCAL INFILE '/Users/fanana/Desktop/hackreactor/sdc/csv/characteristics.csv' INTO TABLE characteristics
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(characterID, productID, name);
+
+
+-- LOAD DATA FOR characteristics_reviews  about 4min to load in
+
+LOAD DATA LOCAL INFILE '/Users/fanana/Desktop/hackreactor/sdc/csv/characteristic_reviews.csv' INTO TABLE characteristics_reviews
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(crID, characterID, reviewID, value);
+
 -- checks how many rows there is from each table
 SELECT count(*) FROM reviews;
 SELECT count(*) FROM products;
 
 
 -- CREATE TABLE products AS SELECT productID FROM reviews
+
+
+-- breaks  -- i want name from characteristics table -- edit works now
+  -- (name) is coming from characteristics table
+  -- (value) from characteristics_reviews table
+  -- (crID) is for ex: length's ID and fit's ID
+SELECT reviews.rating, reviews.recommend, reviews.reviewID, name, value, crID
+FROM reviews
+LEFT JOIN characteristics_reviews ON characteristics_reviews.reviewID = reviews.reviewID
+LEFT JOIN characteristics ON characteristics.characterID = characteristics_reviews.characterID
+WHERE reviews.productID = 1000;
+
+-- it's not crID that we want, for a productID --> there is a characterID directly correlated to a value
+SELECT reviews.rating, reviews.recommend, reviews.reviewID, name, value, characteristics.characterID
+FROM reviews
+LEFT JOIN characteristics_reviews ON characteristics_reviews.reviewID = reviews.reviewID
+LEFT JOIN characteristics ON characteristics.characterID = characteristics_reviews.characterID
+WHERE reviews.productID = 1000;
+
+
+-- works
+SELECT reviews.rating, reviews.recommend, reviews.reviewID
+FROM reviews
+LEFT JOIN characteristics_reviews ON characteristics_reviews.reviewID = reviews.reviewID
+WHERE reviews.productID = 1000;
+
+SELECT reviews.rating, reviews.recommend, reviews.reviewID
+FROM reviews
+WHERE reviews.productID = 1000;
