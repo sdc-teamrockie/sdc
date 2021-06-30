@@ -7,7 +7,6 @@ const {getReviewByCount, getReviewForProductID, getReviewMetaData, postReview, l
 app.use(express.json(), express.urlencoded({extended: false}));
 
 // get reviews endpoint
-// params should allow page, count , sort , product_id
 app.get('/reviews', function(req, res) {
   // query parameters can be retrived from the query object on req obj send to route.
   const params = req.query;
