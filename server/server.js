@@ -3,22 +3,29 @@ const app = express();
 const path = require('path');
 const PORT = 3000;
 const db = require('../database/index.js');
-const {getReviewForProductID, getReviewMetaData, postReview, lastInsertId, postPhotos, addCharacteristicsReviews, reportReview, incrementHelpful} = require('../database/index.js');
-app.use(express.json(), express.urlencoded());
+const {getReviewByCount, getReviewForProductID, getReviewMetaData, postReview, lastInsertId, postPhotos, addCharacteristicsReviews, reportReview, incrementHelpful} = require('../database/index.js');
+app.use(express.json(), express.urlencoded({extended: false}));
 
 // get reviews endpoint
 // params should allow page, count , sort , product_id
-app.get('/reviews/:product_id', function(req, res) {
+app.get('/reviews', function(req, res) {
   // query parameters can be retrived from the query object on req obj send to route.
-  let productID = Number(req.params.product_id);
+  const params = req.query;
+  let productID = Number(params.product_id);
+  let sort;
+  if (params.sort === 'helpful') {
+    sort = 'helpfulness';
+  } else if (params.sort === 'relevant') {
+    sort = 'recommend';
+  }
 
   let convertToDate = function(dateToConvert) {
     return new Date(dateToConvert).toISOString();
   };
 
-  getReviewForProductID(productID, (err, result) => {
+  getReviewByCount(productID, Number(params.count), sort, (err, result) => {
     if (err) {
-      console.log('err has occurred for getReviewForProductID', err);
+      res.status(404).send(err);
     } else {
       const data = result;
       const resultsArray = data.map((data) => {
@@ -42,8 +49,8 @@ app.get('/reviews/:product_id', function(req, res) {
       });
       const resultData = {
         product: productID,
-        page: 0,
-        count: 0,
+        page: Number(params.page),
+        count: Number(params.count),
         results: resultsArray
       };
       res.status(200).json(resultData);
@@ -51,8 +58,9 @@ app.get('/reviews/:product_id', function(req, res) {
   });
 });
 
-app.get('/reviews/meta/:product_id', function(req, res) {
-  let productID = req.params.product_id;
+app.get('/reviews/meta', function(req, res) {
+  const params = req.query;
+  let productID = params.product_id;
 
   getReviewMetaData(productID, (err, result) => {
     if (err) {
@@ -102,7 +110,7 @@ app.get('/reviews/meta/:product_id', function(req, res) {
         recommended: recordRecommend(),
         characteristics: getCharacteristics()
       };
-      
+
       res.status(200).json(resultData);
     }
   });
@@ -130,7 +138,6 @@ app.post('/reviews', function(req, res) {
     }
   }
   bodyArray = bodyArray.concat(defaultValues);
-  // console.log(bodyArray);
   postReview(bodyArray, (err, result) => {
     if (err) {
       console.error(err);
@@ -169,13 +176,6 @@ app.post('/reviews', function(req, res) {
     }
   });
 
-
-  // console.log('body photos', typeof JSON.parse(body.photos));
-  // add each photo, according to last reviewID inserted to review table.
-
-
-
-
 });
 
 
@@ -186,7 +186,6 @@ app.put('/reviews/:review_id/report', function(req, res) {
       res.status(404).send(result);
     } else {
       res.status(200).send(result);
-
     }
   });
 });

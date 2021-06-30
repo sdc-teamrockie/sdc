@@ -14,6 +14,16 @@ connection.connect((err) => {
   }
 });
 
+const getReviewByCount = function(id, n, sort, callback) {
+  var queryString = `SELECT * FROM reviews WHERE productID=${id} AND reported=0 ORDER BY ${sort} DESC LIMIT ${n}`;
+  connection.query(queryString, function(err, result) {
+    if (err) {
+      callback(err, 'unable to get review');
+    } else {
+      callback(null, result);
+    }
+  });
+};
 const getReviewForProductID = function(productID, callback) {
   var queryString = 'SELECT * FROM reviews LEFT JOIN photos ON reviews.reviewID = photos.reviewID WHERE reviews.productID=?';
   connection.query(queryString, productID, function(err, result) {
@@ -109,6 +119,7 @@ const incrementHelpful = function(id, callback) {
 
 
 module.exports = {
+  getReviewByCount,
   getReviewForProductID,
   getReviewMetaData,
   postReview,
