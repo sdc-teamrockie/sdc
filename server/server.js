@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const db = require('../database/index.js');
 const {getReviewByCount, getReviewForProductID, getReviewMetaData, postReview, lastInsertId, postPhotos, addCharacteristicsReviews, reportReview, incrementHelpful} = require('../database/index.js');
 app.use(express.json(), express.urlencoded({extended: false}));
