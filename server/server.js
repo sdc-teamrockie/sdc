@@ -16,6 +16,8 @@ app.get('/reviews', function(req, res) {
     sort = 'helpfulness';
   } else if (params.sort === 'relevant') {
     sort = 'recommend';
+  } else {
+    sort = 'review_date';
   }
 
   let convertToDate = function(dateToConvert) {
