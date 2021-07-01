@@ -1,9 +1,12 @@
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
+  host: '18.117.158.150',
+  port: 3306,
   user: 'root',
   password: 'password',
-  database: 'reviews'
+  database: 'reviews',
+  connectionLimit: 5
 });
 
 // connection.query(queryString, queryParam, err first cb)
