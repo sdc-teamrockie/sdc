@@ -3,9 +3,14 @@ const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 3000;
 const db = require('../database/index.js');
+
 const {getReviewByCount, getReviewForProductID, getReviewMetaData, postReview, lastInsertId, postPhotos, addCharacteristicsReviews, reportReview, incrementHelpful} = require('../database/index.js');
 app.use(express.json(), express.urlencoded({extended: false}));
 
+
+app.get('/loaderio-4bac9f18f8b3392a840acf869128cf3b', function(req, res) {
+  res.send('loaderio-4bac9f18f8b3392a840acf869128cf3b');
+});
 // get reviews endpoint
 app.get('/reviews', function(req, res) {
   // query parameters can be retrived from the query object on req obj send to route.
