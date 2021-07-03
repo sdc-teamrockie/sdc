@@ -67,6 +67,41 @@ Ensure the following modules are installed before running `npm install`
    ```
 3. The api will now be accessible on http://localhost:3000
 
+## ETL Process
+The first step of the project was to design a schema and pick a database based on the data we recieved in CSV file. For the Review section I was given multiple CSV files:
+```
+reviews.csv
+├── id 
+├── product_id
+├── rating
+├── date
+├── summary
+├── body
+├── recommend
+├── reported
+├── reviewer_name
+├── reviewer_email
+├── response
+├──helpfulness
+
+reviews_photo.csv
+├── id
+├── review_id
+└── helpful
+
+characteristic_reviews.csv
+├── id 
+├── characteristic_id
+├── review_id
+└── value
+
+characteristics.csv
+├── id 
+├── product_id
+└── name
+```
+
+
 
 
 
