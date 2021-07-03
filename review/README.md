@@ -82,7 +82,7 @@ reviews.csv
 ├── reviewer_name
 ├── reviewer_email
 ├── response
-├──helpfulness
+└──helpfulness
 
 reviews_photo.csv
 ├── id
