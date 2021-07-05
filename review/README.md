@@ -289,8 +289,16 @@ Parameters
 
 `PUT /reviews/:review_id/report` Updates a review to show it was reported. Note, this action does not delete the review, but the review will not be returned in the above GET request.
 
+Response
+
+`Status: 204 NO CONTENT`
+
 Parameters 
 
 | Parameters | Type    | Description                                               |
 | ---------- | ------- | --------------------------------------------------------- |
 | review_id| integer |  Required ID of the review to update    |
+
+Response
+
+`Status: 204 NO CONTENT`
