@@ -18,7 +18,7 @@ I Implemented the server using node.js and express. Using docker for deployment.
 
 [ETL Process](#etl-process)
 
-[System Architecture](#system-architecture)
+[API Performance](#API-Performance)
 
 [Load Testing](#load-testing)
 
@@ -47,6 +47,8 @@ Ensure the following modules are installed before running `npm install`
 
 - Artillery.io
 - Loader.io
+
+## Installation
 
 ### Running Locally
 1. Start an instance of mySQL
@@ -100,8 +102,13 @@ characteristics.csv
 ├── product_id
 └── name
 ```
+ Since I used mySQL database I had the option to go with LOAD DATA INFILE method, directly loading in the csv column into my table. The reviews.csv was relatively huge (10-million rows) compared to other csv file. Therefore I split the file using script command and loading each one individually. 
+ 
+ This process took about 10 minutes, which in general is much faster than using streams. Although, more manual work but however you skip over the complexity and the wait time over using streams.
+ 
 
 
+## API Performance
 
 
 
