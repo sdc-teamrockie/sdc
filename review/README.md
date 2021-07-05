@@ -150,4 +150,5 @@ I realized that once the API tries to handle 1000 client/sec my response time su
 
 - [Report Review](#report-review)
 
-
+### List Reviews
+`GET /reviews/ `Returns a list of reviews for a particular product. This list does not include any reported reviews.
