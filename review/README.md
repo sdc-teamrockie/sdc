@@ -7,7 +7,7 @@
 </div> -->
 <img src="https://img.shields.io/badge/Runtime-Node.js-%23429643?logo=node.js"/> <img src="https://img.shields.io/badge/Database-mySQL-yellow"/> 
 
-<img src="https://img.shields.io/badge/Deployment-AWS%20EC2-%23EC912D?logo=amazon"/><img src="https://img.shields.io/badge/Development-Docker-9cf?logo=docker"/> <img src="https://img.shields.io/badge/Load--Balance-NGINX-green" alt="docker badge">
+<img src="https://img.shields.io/badge/Deployment-AWS%20EC2-%23EC912D?logo=amazon"/> <img src="https://img.shields.io/badge/Development-Docker-9cf?logo=docker"/> <img src="https://img.shields.io/badge/Load--Balance-NGINX-green" alt="docker badge">
 
 <img src=https://img.shields.io/badge/Testing-artillery.io-lightgrey/> <img src="https://img.shields.io/badge/Testing-Loader.io-%231A82E3?"/>
                                                                                                                                                    
