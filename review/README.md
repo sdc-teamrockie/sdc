@@ -2,7 +2,7 @@
 
 ## ReviewAPI is a RESTful API that provides Reviews and Rating data to the Atelier e-Commerce platform.
 <div style="text-align: center">
-  https://img.shields.io/badge/docker-Docker-blue
+  <img src="https://img.shields.io/badge/docker-Docker-blue" alt="docker badge">
   </div>
 
 ReviewAPI completes Extract, Transform, and Load process for the required CSV data using LOAD DATA INFILE, which populates mySQL database.
