@@ -20,7 +20,7 @@ I Implemented the server using node.js and express. Using docker for deployment.
 
 [API Performance](#API-Performance)
 
-[Load Testing](#load-testing)
+[System Architecture](#system-architecture)
 
 [API Routes](#api-routes)
 
@@ -108,7 +108,17 @@ characteristics.csv
  
 
 
-## API Performance
+## System Architecture
+### Initial System Architecture
+
+
+###Final System Architecture
+
+
+
+## Load Testing
+
+
 
 
 
