@@ -142,7 +142,7 @@ I realized that once the API tries to handle 1000 client/sec my response time su
 
 - [List Reviews](#list-reviews)
 
-- [List Review Metadata](#list-Metadata)
+- [List Metadata](#list-Metadata)
 
 - [Add A Review](#add-a-review)
 
@@ -209,3 +209,12 @@ Response
   ]
 }
 ```
+
+### List Metadata
+`GET /reviews/meta` Returns review metadata for a given product.
+
+Query Parameters 
+
+| Parameters | Type    | Description                                               |
+| ---------- | ------- | --------------------------------------------------------- |
+| product_id| integer |  Required ID of the product for which data should be returned    |
