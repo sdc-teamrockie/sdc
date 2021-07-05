@@ -1,6 +1,9 @@
 # ReviewAPI 
 
 ## ReviewAPI is a RESTful API that provides Reviews and Rating data to the Atelier e-Commerce platform.
+<div style="text-align: center">
+  https://img.shields.io/badge/docker-Docker-blue
+  </div>
 
 ReviewAPI completes Extract, Transform, and Load process for the required CSV data using LOAD DATA INFILE, which populates mySQL database.
 For this project I was given a set of CSV files containing millions of record. The goal was to produce a scalable API that had to serve pre-existing legacy front end code with multiple endpoints. The minimum requirements were to serve 200 clients per seconds with <50ms average response time, after initial deployment on AWS EC2 t2.micros and load testing I was able to achieve 1000 clients per seconds with appropriate response time. 
