@@ -138,3 +138,16 @@ Using a single instance of the API server I managed to handle 1,000 clients/sec 
 I realized that once the API tries to handle 1000 client/sec my response time suffers heavily, Therefore I dockerized my API and using NGINX for load balancing to try to optimize allowing more clients and better response time
 
 
+## API Routes
+
+- [List Reviews](#list-reviews)
+
+- [List Review Metadata](#list-Metadata)
+
+- [Add A Review](#add-a-review)
+
+- [Mark Review As Helpful](#mark-review-as-helpful)
+
+- [Report Review](#report-review)
+
+
