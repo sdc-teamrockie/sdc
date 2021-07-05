@@ -18,9 +18,9 @@ I Implemented the server using node.js and express. Using docker for deployment.
 
 [ETL Process](#etl-process)
 
-[API Performance](#API-Performance)
-
 [System Architecture](#system-architecture)
+
+[Load Testing](#load-testing)
 
 [API Routes](#api-routes)
 
