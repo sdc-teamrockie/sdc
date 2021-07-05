@@ -135,3 +135,6 @@ Using a single instance of the API server I managed to handle 1,000 clients/sec 
 
 > response time raises for 1000 client per second
 
+I realized that once the API tries to handle 1000 client/sec my response time suffers heavily, Therefore I dockerized my API and using NGINX for load balancing to try to optimize allowing more clients and better response time
+
+
