@@ -5,9 +5,13 @@
   <img src="https://img.shields.io/badge/docker-Docker-blue" alt="docker badge">
   <img src="https://img.shields.io/badge/NGINX-NGINX-green" alt="docker badge">
 </div> -->
-<img src="https://img.shields.io/badge/Runtime-Node.js-%23429643?logo=node.js"/> <img src="https://img.shields.io/badge/mySQL-mySQL-yellow"/> <img 
+<img src="https://img.shields.io/badge/Runtime-Node.js-%23429643?logo=node.js"/> <img src="https://img.shields.io/badge/mySQL-mySQL-yellow"/> 
 
-<img src="https://img.shields.io/badge/Deployment-AWS%20EC2-%23EC912D?logo=amazon"/> <img src="https://img.shields.io/badge/Development-Docker-9cf?logo=docker"/> <img src="https://img.shields.io/badge/artillery.io-artillery.io-lightgrey"/> <img src="https://img.shields.io/badge/Testing-Loader.io-%231A82E3?"/>
+<img src="https://img.shields.io/badge/Deployment-AWS%20EC2-%23EC912D?logo=amazon"/>
+<img src="https://img.shields.io/badge/Development-Docker-9cf?logo=docker"/> 
+<img src="https://img.shields.io/badge/NGINX-NGINX-green" alt="docker badge">
+<img src="https://img.shields.io/badge/artillery.io-artillery.io-lightgrey"/> 
+<img src="https://img.shields.io/badge/Testing-Loader.io-%231A82E3?"/>
                                                                                                                                                    
                                                                                                                                                    
 
