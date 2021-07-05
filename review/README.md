@@ -132,5 +132,6 @@ Using a single instance of the API server I managed to handle 1,000 clients/sec 
 
 
 <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/08029d21-ff15-48da-8859-f29251479d7a/Screen_Shot_2021-07-01_at_1.09.19_PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210705%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210705T181321Z&X-Amz-Expires=86400&X-Amz-Signature=757f32665a019c90c3833f6033d8d8c11609131b3d14d50c0a80aa619a910b49&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Screen_Shot_2021-07-01_at_1.09.19_PM.png%22" alt="1000 client per second test">
+
 > response time raises for 1000 client per second
 
