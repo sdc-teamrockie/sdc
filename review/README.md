@@ -161,4 +161,4 @@ Parameters
 | count       | integer | query | Specifies how many results per page to return. Default 5.         |
   |
 | sort       | text | query | Changes the sort order of reviews to be based on "newest", "helpful", or "relevant"        |
-| product_id      | integer | query | Specifies the product for which to retrieve reviews. Default 5. |
+| product_id      | integer | query | Specifies the product for which to retrieve reviews. |
