@@ -151,4 +151,14 @@ I realized that once the API tries to handle 1000 client/sec my response time su
 - [Report Review](#report-review)
 
 ### List Reviews
-`GET /reviews/ `Returns a list of reviews for a particular product. This list does not include any reported reviews.
+`GET /reviews/` Returns a list of reviews for a particular product. This list does not include any reported reviews.
+
+Parameters 
+
+| Parameters | Type    | In    | Description                                               |
+| ---------- | ------- | ----- | --------------------------------------------------------- |
+| page | integer | query | Selects the page of results to return. Default 1.     |
+| count       | integer | query | Specifies how many results per page to return. Default 5.         |
+  |
+| sort       | text | query | Changes the sort order of reviews to be based on "newest", "helpful", or "relevant"        |
+| product_id      | integer | query | Specifies the product for which to retrieve reviews. Default 5. |
