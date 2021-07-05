@@ -264,12 +264,10 @@ Body Parameters
 | product_id| integer |  Required ID of the product for which data should be returned    |
 | rating| int |  Integer (1-5) indicating the review rating    |
 | summary| text |  Summary text of the review    |
-| body| text |  Continued or full text of the review
-    |
-| recommend| bool |  Value indicating if the reviewer recommends the product 
-    |
-| name| text |  Username for question asker    |
-| email| text |  Email address for question asker    |
+| body| text |  Continued or full text of the review |
+| recommend| bool |  Value indicating if the reviewer recommends the product |
+| name| text |  Username for question asker   |
+| email| text |  Email address for question asker   |
 | photos| [text] |  Array of text urls that link to images to be shown    |
 | characteristics| object |  Object of keys representing characteristic_id and values representing the review value for that characteristic. { "14": 5, "15": 5 //...}    |
 
