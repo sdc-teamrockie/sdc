@@ -271,12 +271,11 @@ Body Parameters
 | photos| [text] |  Array of text urls that link to images to be shown    |
 | characteristics| object |  Object of keys representing characteristic_id and values representing the review value for that characteristic. { "14": 5, "15": 5 //...}    |
 
+`Response Status: 201 CREATED`
 
 ### Mark Review As Helpful
 
 `PUT /reviews/:review_id/helpful` Updates a review to show it was found helpful.
-
-Response `Status: 201 CREATED`
 
 Parameters 
 
@@ -284,14 +283,13 @@ Parameters
 | ---------- | ------- | --------------------------------------------------------- |
 | review_id| integer |  Required ID of the review to update    |
 
+Response
+
+`Status: 204 NO CONTENT`
 
 ### Report Review
 
 `PUT /reviews/:review_id/report` Updates a review to show it was reported. Note, this action does not delete the review, but the review will not be returned in the above GET request.
-
-Response
-
-`Status: 204 NO CONTENT`
 
 Parameters 
 
