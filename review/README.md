@@ -218,3 +218,58 @@ Query Parameters
 | Parameters | Type    | Description                                               |
 | ---------- | ------- | --------------------------------------------------------- |
 | product_id| integer |  Required ID of the product for which data should be returned    |
+
+Response
+
+`Status: 200 OK`
+
+``` JSON
+{
+  "product_id": "2",
+  "ratings": {
+    2: 1,
+    3: 1,
+    4: 2,
+    // ...
+  },
+  "recommended": {
+    0: 5
+    // ...
+  },
+  "characteristics": {
+    "Size": {
+      "id": 14,
+      "value": "4.0000"
+    },
+    "Width": {
+      "id": 15,
+      "value": "3.5000"
+    },
+    "Comfort": {
+      "id": 16,
+      "value": "4.0000"
+    },
+    // ...
+}
+```
+
+### Add a Review
+
+`POST /reviews` Adds a review for the given product.
+
+Body Parameters
+
+| Parameters | Type    | Description                                               |
+| ---------- | ------- | --------------------------------------------------------- |
+| product_id| integer |  Required ID of the product for which data should be returned    |
+| rating| int |  Integer (1-5) indicating the review rating    |
+| summary| text |  Summary text of the review    |
+| body| text |  Continued or full text of the review
+    |
+| recommend| bool |  Value indicating if the reviewer recommends the product 
+    |
+| name| text |  Username for question asker    |
+| email| text |  Email address for question asker    |
+| photos| [text] |  Array of text urls that link to images to be shown    |
+| characteristics| object |  Object of keys representing characteristic_id and values representing the review value for that characteristic. { "14": 5, "15": 5 //...}    |
+
